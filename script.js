@@ -11,7 +11,7 @@ var questions = [
             "booleans",
             "alerts",
             "numbers"],
-            correctAnswerIndex: 2
+            correctResponse: 2
     },
     {
         question: "The condition in an If Else statement is usually enclosed within________",
@@ -19,7 +19,7 @@ var questions = [
             "curly brackets",
             "parentheses",
             "square brackets"],
-            correctAnswerIndex:3
+            correctResponse:3
     },
     {
         question: "Arrays in javascript can be used to store?",
@@ -27,14 +27,14 @@ var questions = [
             "numbers",
             "other arrays",
             "all of the above"],
-            correctAnswerIndex: 1
+            correctResponse: 1
     }
-]
+];
+var possibleAnswers =[2, 3, 1]
+
 
 
 var currentQuestion = 0;
-// var setQuestions = JSON.stringify("questions", questions);
-// console.log(setQuestions);
 
 function renderQuestions(){
 questionsScreen.innerHTML="";
@@ -45,11 +45,18 @@ questionsScreen.innerHTML="";
     questionsScreen.appendChild(h2);
 
     var answers= question.answers
-    answers.forEach(function(answer){
+    answers.forEach(function(answer, index){
 var button = document.createElement('button');
 button.setAttribute("style", "display: block");
+
 button.textContent = answer;
 questionsScreen.appendChild(button);
+
+//check for an event listener for each answer button
+
+button.addEventListener("click", function(){
+    checkAnswer(index);
+});
 
     })
 }
@@ -64,4 +71,25 @@ startScreen.style.display='none';
 renderQuestions();
 displayQuestions();
 });
+
+function checkAnswer(selectedAnswer){
+    //check which button was clicked and if the index of the button clicked is the correct answer
+    var question =questions[currentQuestion];
+
+    var p = document.createElement("p");
+    //if the button clicked is the correct response
+    if(selectedAnswer === questions[currentQuestion].correctResponse) {
+    // show correct
+    document.body.appendChild(p);
+    p.textContent="Correct";
+    } else {
+//otherwise wrong
+document.body.appendChild(p);
+p.textContent="Wrong";
+    }
+if(currentQuestion < questions.length){
+currentQuestion++;
+renderQuestions();
+}
+}
 
