@@ -3,6 +3,7 @@ var startButton = document.querySelector("#start");
 var questionsScreen = document.querySelector("#questions");
 var endScreen = document.querySelector("#end-screen");
 var timerElement = document.querySelector("#time")
+var finalScore = document.querySelector("#final-score");
 
 var timer;
 var timerCount = 60
@@ -31,7 +32,7 @@ var possibleAnswers = [2, 2, 3];
 var currentQuestion = 0;
 
 
-
+//
 function renderQuestions() {
   if (currentQuestion < questions.length) {
     questionsScreen.innerHTML = "";
@@ -96,10 +97,14 @@ function checkAnswer(selectedAnswer) {
 }
 
 function renderEndScreen() {
+
   timerElement.textContent=timerCount;
+
   questionsScreen.style.display = "none";
   endScreen.style.display = "block";
+  finalScore.textContent=timerCount;
   stopTimer();
+
 }
 
 function countDownTimer(){
