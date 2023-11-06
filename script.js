@@ -2,7 +2,10 @@ var startScreen = document.querySelector("#start-screen");
 var startButton = document.querySelector("#start");
 var questionsScreen = document.querySelector("#questions");
 var endScreen = document.querySelector("#end-screen");
+var timerElement = document.querySelector("#time")
 
+var timer;
+var timerCount = 60
 var p = document.createElement("p");
 
 var questions = [
@@ -20,10 +23,10 @@ var questions = [
   {
     question: "Arrays in javascript can be used to store?",
     answers: ["strings", "numbers", "other arrays", "all of the above"],
-    correctResponse: 1,
+    correctResponse: 3,
   },
 ];
-var possibleAnswers = [2, 3, 1];
+var possibleAnswers = [2, 2, 3];
 
 var currentQuestion = 0;
 
@@ -63,19 +66,23 @@ function displayQuestions() {
 }
 startButton.addEventListener("click", function (e) {
   startScreen.style.display = "none";
+countDownTimer();
   renderQuestions();
   displayQuestions();
 });
 
+
+
 function checkAnswer(selectedAnswer) {
   var question = questions[currentQuestion];
-
 
   if (selectedAnswer === question.correctResponse) {
     document.body.appendChild(p);
     p.textContent = "Correct";
   } else {
     p.textContent = "Wrong";
+// Apply a 10-second penalty for wrong answers
+    timerCount -= 10;
   }
 
   document.body.appendChild(p);
@@ -84,11 +91,29 @@ function checkAnswer(selectedAnswer) {
     currentQuestion++;
     renderQuestions();
   } else {
-    renderEndScreen();
+    renderEndScreen(); // Check if it's the last question after applying the penalty
   }
 }
 
 function renderEndScreen() {
+  timerElement.textContent=timerCount;
   questionsScreen.style.display = "none";
   endScreen.style.display = "block";
+  stopTimer();
 }
+
+function countDownTimer(){
+//set the timer
+timer=setInterval(function() {
+timerCount--;
+timerElement.textContent = timerCount;
+if (timerCount <= 0) {
+  clearInterval(timer);
+  renderEndScreen();
+}
+}, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timer)
+ }
