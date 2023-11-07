@@ -11,6 +11,7 @@ var timer;
 var timerCount = 60;
 var p = document.createElement("p");
 
+//Set up a series of questions
 var questions = [
   {
     question: "Commonly used data types do not include?",
@@ -33,6 +34,8 @@ var possibleAnswers = [2, 2, 3];
 
 var currentQuestion = 0;
 
+
+// to present the questions to the user
 function renderQuestions() {
   if (currentQuestion < questions.length) {
     questionsScreen.innerHTML = "";
@@ -62,6 +65,7 @@ function displayQuestions() {
   questionsScreen.style.display = "block";
 }
 
+//start timer and show the questions
 startButton.addEventListener("click", function (e) {
   startScreen.style.display = "none";
   countDownTimer();
@@ -69,6 +73,7 @@ startButton.addEventListener("click", function (e) {
   displayQuestions();
 });
 
+//compare the user answers with the correct answers
 function checkAnswer(selectedAnswer) {
   var question = questions[currentQuestion];
 
@@ -90,6 +95,7 @@ function checkAnswer(selectedAnswer) {
     renderEndScreen();
   }
 }
+
 
 function renderEndScreen() {
   timerElement.textContent = timerCount;
@@ -114,7 +120,7 @@ function countDownTimer() {
 function stopTimer() {
   clearInterval(timer);
 }
-
+//submit the final score
 submitScoreButton.addEventListener("click", function () {
   var initials = initialsInput.value;
   var score = timerCount;

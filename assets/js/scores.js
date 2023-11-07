@@ -1,6 +1,7 @@
 var highScoresList = document.querySelector("#highscores");
 var clearHighScoresList = document.querySelector("#clear");
 
+//display high scores
 function displayHighScores() {
   highScoresList.innerHTML = "";
   var highScoresData = JSON.parse(localStorage.getItem("highScores")) || [];
@@ -14,6 +15,7 @@ function displayHighScores() {
   });
 }
 
+//clear high scores
 function clearHighScores() {
   clearHighScoresList.addEventListener("click", function () {
     while (highScoresList.firstChild) {
